@@ -1,7 +1,8 @@
 package com.krshashi.chiefu.ui.theme
 
-import android.app.Activity
 import android.os.Build
+import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
@@ -50,9 +51,15 @@ fun ChiefuTheme(
         else -> LightColorScheme
     }
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        content = content
-    )
+    Crossfade(
+        label = "themeAnim",
+        targetState = colorScheme,
+        animationSpec = tween(durationMillis = 500)
+    ) { scheme ->
+        MaterialTheme(
+            colorScheme = scheme,
+            typography = Typography,
+            content = content
+        )
+    }
 }
